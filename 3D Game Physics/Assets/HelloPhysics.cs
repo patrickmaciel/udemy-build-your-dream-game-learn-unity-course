@@ -15,17 +15,10 @@ public class HelloPhysics : MonoBehaviour {
 
     void FixedUpdate()
     {
-        var randomX = Random.Range(0, 10);
-        Debug.Log("randomX = " + randomX);
-        var randomY = Random.Range(0, 10);
-        Debug.Log("randomY = " + randomY);
-        var randomZ = Random.Range(0, 10);
-        Debug.Log("randomZ = " + randomZ);
-
-        Vector3 force = new Vector3(randomX, randomY, randomZ);
+        Vector3 force = new Vector3(-10, 10, 0);
         this.gameObject.GetComponent<Rigidbody>().AddForce(force);
 
-        Vector3 rotation = new Vector3(randomX, randomY, 0);
-        this.gameObject.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(rotation));
+        Vector3 torque = new Vector3(-10, 0, 0);
+        this.gameObject.GetComponent<Rigidbody>().AddTorque(torque);
     }
 }
