@@ -4,6 +4,7 @@ using System.Collections;
 public class BallController : MonoBehaviour {
 
     public float force = 5f;
+    private bool fast = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,19 @@ public class BallController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if (fast)
+            {
+                fast = false;
+                force = 5f;
+            } else
+            {
+                force = 8f;
+                fast = true;
+            }
+        }
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
