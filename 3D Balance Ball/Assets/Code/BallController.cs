@@ -57,4 +57,9 @@ public class BallController : MonoBehaviour {
             this.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.left * force);
         }
     }
+
+    public void OnCollisionEnter()
+    {
+        this.GetComponent<AudioSource>().Play();
+    }
 }
