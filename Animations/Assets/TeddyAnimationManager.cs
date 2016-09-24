@@ -10,7 +10,7 @@ public class TeddyAnimationManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Animator animator = this.GetComponent<Animator>();
-        animator.SetTrigger("No");
+        //Animator animator = this.GetComponent<Animator>();
+        //animator.SetTrigger("No");
 	}
 }
