@@ -63,6 +63,7 @@ public class CharController : MonoBehaviour {
                     this.gameObject.transform.position.z
                 )
             );
+            mainCamera.SendMessage("AdjustCamera", -(2.7f / maxLeftCycles));
             left++;
         }
 
@@ -75,6 +76,7 @@ public class CharController : MonoBehaviour {
                     this.gameObject.transform.position.z
                 )
             );
+            mainCamera.SendMessage("AdjustCamera", (2.7f / maxRightCycles));
             right++;
         }
     }
