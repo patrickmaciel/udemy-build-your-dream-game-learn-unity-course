@@ -37,7 +37,23 @@ public class CharController : MonoBehaviour {
         {
             jump = 0;
         }
+
+        ActivateTrainsInRange();
 	}
+
+    private void ActivateTrainsInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(
+            this.gameObject.transform.position, 50f);
+
+        foreach (Collider c in colliders)
+        {
+            if (c.gameObject.GetComponent<TrainController>() != null)
+            {
+                c.gameObject.GetComponent<TrainController>().SignalToMove();
+            }
+        }
+    }
 
     void FixedUpdate()
     {
