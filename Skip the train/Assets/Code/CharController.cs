@@ -39,6 +39,8 @@ public class CharController : MonoBehaviour {
         }
 
         ActivateTrainsInRange();
+
+        CheckIfDied();
 	}
 
     private void ActivateTrainsInRange()
@@ -97,8 +99,31 @@ public class CharController : MonoBehaviour {
         }
     }
 
+    void CheckIfDied()
+    {
+        if (this.gameObject.transform.position.y < -5)
+        {
+            Application.LoadLevel(0);
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.gameObject.layer == 
+            LayerMask.NameToLayer("Obstacle"))
+        {
+            alive = false;
+
+            // stop animations
+            this.GetComponent<Animator>().speed = 0;
+            // Deatch camera so it doesn't move with the character
+            mainCamera.GetComponent<CameraController>().DetachCamera();
+            // reset velocity
+            this.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            // apply force to blow out the character
+            this.GetComponent<Rigidbody>().AddForce(-500f, 1500f, -1000f);
+        }
+
         if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             grounded = true;
