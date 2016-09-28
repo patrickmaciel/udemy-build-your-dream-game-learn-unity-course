@@ -24,18 +24,24 @@ public class CharController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow) 
+            || Swipe.swipe == Swipe.SwipeDirection.right)
         {
+            Swipe.ResetSwipe();
             right = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        if (Input.GetKeyUp(KeyCode.LeftArrow) 
+            || Swipe.swipe == Swipe.SwipeDirection.right)
         {
+            Swipe.ResetSwipe();
             left = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && grounded)
+        if ((Input.GetKeyUp(KeyCode.Space) || Swipe.swipe == Swipe.SwipeDirection.up) 
+            && grounded)
         {
+            Swipe.ResetSwipe();
             jump = 0;
         }
 
