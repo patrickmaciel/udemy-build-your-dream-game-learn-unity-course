@@ -13,6 +13,7 @@ public class CharController : MonoBehaviour {
     int maxRightCycles = 5;
 
     public Camera mainCamera;
+    public Material skybox;
 
 	// Use this for initialization
 	void Start () {
@@ -41,7 +42,14 @@ public class CharController : MonoBehaviour {
         ActivateTrainsInRange();
 
         CheckIfDied();
+
+        UpdateSkyBox();
 	}
+
+    void UpdateSkyBox()
+    {
+        skybox.SetFloat("_AtmosphereThickness", Mathf.Repeat(Time.time / 20, 5f));
+    }
 
     private void ActivateTrainsInRange()
     {
