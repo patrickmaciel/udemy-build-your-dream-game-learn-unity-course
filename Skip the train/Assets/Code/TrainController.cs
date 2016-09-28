@@ -4,7 +4,7 @@ using System.Collections;
 public class TrainController : MonoBehaviour {
 
     public bool moving = false;
-    public float speed = 1f;
+    // private float speed = 1f;
 
     private bool signaledToMove = false;
 
@@ -22,6 +22,8 @@ public class TrainController : MonoBehaviour {
     {
         if (moving && signaledToMove)
         {
+            float speed = Random.Range(1, 3);
+            Debug.Log("speed = " + speed);
             this.GetComponent<Rigidbody>().AddForce(Vector3.back * 250 * speed);
         }
 
