@@ -32,7 +32,7 @@ public class CharController : MonoBehaviour {
         }
 
         if (Input.GetKeyUp(KeyCode.LeftArrow) 
-            || Swipe.swipe == Swipe.SwipeDirection.right)
+            || Swipe.swipe == Swipe.SwipeDirection.left)
         {
             Swipe.ResetSwipe();
             left = 0;
