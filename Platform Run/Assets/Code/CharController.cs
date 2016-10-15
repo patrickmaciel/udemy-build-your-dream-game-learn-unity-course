@@ -5,6 +5,7 @@ public class CharController : MonoBehaviour {
 	bool jump = false;
 	bool down = false;
 	bool grounded = false;
+	int score = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -64,5 +65,13 @@ public class CharController : MonoBehaviour {
 	{
 		GetComponent<AudioSource>().Play();
 		Destroy(other.gameObject);
+
+		this.score++;
+		this.UpdateScore();
+	}
+
+	void UpdateScore()
+	{
+		GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + this.score;
 	}
 }
