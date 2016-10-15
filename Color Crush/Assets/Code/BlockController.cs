@@ -10,8 +10,28 @@ public class BlockController : MonoBehaviour {
 		Green,
 		Yellow,
 		Purple
-	};
+	}
+
+	public enum Direction {
+		up,
+		down,
+		right,
+		left
+	}
+
+	Vector3 mousePosition;
+
 	public Sprite[] sprites;
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
 
 	public void SetType(BlockType t) {
 		switch(t) {
@@ -39,13 +59,31 @@ public class BlockController : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
-	
+	public void BeginMouseDrag(BaseEventData b) {
+		mousePosition = Input.mousePosition;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void EndMouseDrag(BaseEventData b) {
+		Vector3 currentMousePosition = Input.mousePosition;
+
+		if (Mathf.Abs(currentMousePosition.x - mousePosition.x) > Mathf.Abs(currentMousePosition.y - mousePosition.y)) {
+			// horizontal
+			if (currentMousePosition.x > mousePosition.x) {
+				// right
+				GameObject.Find("Main Camera").GetComponent<GameController>().MoveBlock(this.gameObject, Direction.right);
+			} else {
+				// left
+				GameObject.Find("Main Camera").GetComponent<GameController>().MoveBlock(this.gameObject, Direction.left);
+			}
+		} else {
+			// vertical
+			if (currentMousePosition.y > mousePosition.y) {
+				// up
+				GameObject.Find("Main Camera").GetComponent<GameController>().MoveBlock(this.gameObject, Direction.up);
+			} else {
+				// down
+				GameObject.Find("Main Camera").GetComponent<GameController>().MoveBlock(this.gameObject, Direction.down);
+			}
+		}
 	}
 }
