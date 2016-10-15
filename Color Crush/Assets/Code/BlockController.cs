@@ -60,10 +60,12 @@ public class BlockController : MonoBehaviour {
 	}
 
 	public void BeginMouseDrag(BaseEventData b) {
+		Debug.Log("BeginMouseDrag");
 		mousePosition = Input.mousePosition;
 	}
 
 	public void EndMouseDrag(BaseEventData b) {
+		Debug.Log("EndMouseDrag");
 		Vector3 currentMousePosition = Input.mousePosition;
 
 		if (Mathf.Abs(currentMousePosition.x - mousePosition.x) > Mathf.Abs(currentMousePosition.y - mousePosition.y)) {

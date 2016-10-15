@@ -62,6 +62,11 @@ public class GameController : MonoBehaviour {
 		} 
 	}
 
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
 	public int Crush(bool check = false) {
 		int numberOfCrushes = 0;
 
@@ -170,9 +175,63 @@ public class GameController : MonoBehaviour {
 	void UpdateScore() {
 		scoreObject.GetComponent<Text>().text = "Score: " + score;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public Vector2 FindBlockInGrid(GameObject o) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				if (grid[i, j] == o) {
+					return new Vector2(i, j);
+				}
+			}
+		}
+
+		return new Vector2(-1, -1);
+	}
+
+	public void MoveBlock(GameObject block, BlockController.Direction d) {
+		Debug.Log("MoveBlock");
+		Vector2 blockPosition = FindBlockInGrid(block);
+		Vector2 otherBlockPosition = blockPosition;
+
+		switch (d) {
+			case BlockController.Direction.up:
+				otherBlockPosition.x--;
+				break;
+			case BlockController.Direction.down:
+				otherBlockPosition.x++;
+				break;
+			case BlockController.Direction.left:
+				otherBlockPosition.y--;
+				break;
+			case BlockController.Direction.right:
+				otherBlockPosition.y++;
+				break;
+		}
+
+		if (otherBlockPosition.x >= 0 && otherBlockPosition.x < height && otherBlockPosition.y >= 0 && otherBlockPosition.y < width && grid[(int) otherBlockPosition.x, (int) otherBlockPosition.y] != null) {
+			// swap blocks in the grid
+			GameObject temp = grid[(int)blockPosition.x, (int)blockPosition.y];
+			grid[(int)blockPosition.x, (int)blockPosition.y] = grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y];
+			grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y] = temp;
+
+			if (Crush(true) == 0) {
+				// swap back, this move is not allowed because it doesn't result int a crush
+				temp = grid[(int)blockPosition.x, (int)blockPosition.y];
+				grid[(int)blockPosition.x, (int)blockPosition.y] = grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y];
+				grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y] = temp;
+			} else {
+				// handle the move visually
+				Vector2 tempPosition = grid[(int)blockPosition.x, (int)blockPosition.y].GetComponent<RectTransform>().anchoredPosition;
+				grid[(int)blockPosition.x, (int)blockPosition.y].GetComponent<RectTransform>().anchoredPosition = grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y].GetComponent<RectTransform>().anchoredPosition;
+				grid[(int)otherBlockPosition.x, (int)otherBlockPosition.y].GetComponent<RectTransform>().anchoredPosition = tempPosition;
+
+				// Crush
+				while (Crush() > 0) {
+
+				}
+
+
+			}
+		}
 	}
 }
